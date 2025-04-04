@@ -17,7 +17,7 @@ class MailFactory extends Factory
             'description' => $this->faker->paragraph(1),
             'received_at' => $this->faker->dateTimeBetween('-3 month', '1 year'),
             'reference_number' => $this->faker->unique()->numerify('REF-#####'),
-            'phone_number' => substr($this->faker->numerify('+62###########'), 0, 15),
+            'phone_number' => substr($this->faker->numerify('###########'), 0, 12),
             'letter_date' => $this->faker->date(),
             'completed' => $this->faker->boolean(),
             'category_id' => Category::inRandomOrder()->first()->id,

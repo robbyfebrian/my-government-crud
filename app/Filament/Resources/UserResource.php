@@ -33,7 +33,6 @@ class UserResource extends Resource
 
                 Forms\Components\TextInput::make('password')
                     ->password()
-                    ->required()
                     ->maxLength(255)
                     ->dehydrateStateUsing(fn ($state) => Hash::make($state))
                     ->required(fn (string $context): bool => $context === 'create'),
@@ -57,13 +56,14 @@ class UserResource extends Resource
                 ->label('Email')
                 ->sortable()
                 ->searchable(),
-            Tables\Columns\IconColumn::make('is_admin')
+            Tables\Columns\TextColumn::make('is_admin')
                 ->label('Admin')
-                ->boolean()
-                ->trueColor('info')
-                ->falseColor('danger')
-                ->trueIcon('heroicon-o-check-circle')
-                ->falseIcon('heroicon-o-x-circle'),
+                ->formatStateUsing(fn (bool $state): string => $state ? 'Admin' : 'User')
+                ->color(fn (bool $state): string => $state ? 'success' : 'warning')
+                ->searchable()
+                ->extraAttributes(fn (bool $state): array => [
+                    'style' => $state ? 'justify-content: center; background-color: #d1e7dd; border-radius: 4px; padding-inline: 10px; padding-block: 2px; max-width: 60px;' : 'justify-content: center; background-color: #fff3cd; border-radius: 4px; padding-inline: 10px; padding-block: 2px; max-width: 60px;',
+                ]),
         ])
         ->filters([
 

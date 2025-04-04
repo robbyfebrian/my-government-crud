@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('name');
             $table->string('slug');
             $table->text('description');
-            $table->string('phone_number', 15);
+            $table->string('phone_number', 12);
             $table->date('received_at');
             $table->string('reference_number')->unique();
             $table->date('letter_date');

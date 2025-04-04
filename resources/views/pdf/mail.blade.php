@@ -60,12 +60,12 @@
         <tr>
           <td>Nomor Telepon</td>
           <td style="width: 30px; text-align: center;">:</td>
-          <td>{{ $mail->phone_number }}</td>
+          <td>+62{{ $mail->phone_number }}</td>
         </tr>
         <tr>
           <td>Tanggal Masuk</td>
           <td style="width: 30px; text-align: center;">:</td>
-          <td>{{ $mail->received_at }}</td>
+          <td>{{ $receivedAt }}</td>
         </tr>
         <tr>
           <td>Nomor Surat</td>
@@ -75,7 +75,7 @@
         <tr>
           <td>Tanggal Surat</td>
           <td style="width: 30px; text-align: center;">:</td>
-          <td>{{ $mail->letter_date }}</td>
+          <td>{{ $letterDate }}</td>
         </tr>
       </table>
 
@@ -106,12 +106,12 @@
         <tr>
           <td>Nomor Telepon</td>
           <td style="width: 30px; text-align: center;">:</td>
-          <td>{{ $mail->phone_number }}</td>
+          <td>+62{{ $mail->phone_number }}</td>
         </tr>
         <tr>
           <td>Tanggal Masuk</td>
           <td style="width: 30px; text-align: center;">:</td>
-          <td>{{ $mail->received_at }}</td>
+          <td>{{ $receivedAt }}</td>
         </tr>
         <tr>
           <td>Nomor Surat</td>
@@ -121,7 +121,7 @@
         <tr>
           <td>Tanggal Surat</td>
           <td style="width: 30px; text-align: center;">:</td>
-          <td>{{ $mail->letter_date }}</td>
+          <td>{{ $letterDate }}</td>
         </tr>
       </table>
 

@@ -13,7 +13,6 @@ use Filament\Forms\Form;
 use Filament\Notifications\Notification;
 use Filament\Resources\Resource;
 use Filament\Tables;
-use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\Filter;
 use Filament\Tables\Table;
@@ -49,7 +48,7 @@ class MailResource extends Resource
                 ->label('No. Telepon')
                 ->required()
                 ->tel()
-                ->prefix('62'),
+                ->prefix('+62'),
 
                 DatePicker::make('received_at')
                 ->label('Tanggal Masuk')
@@ -57,8 +56,7 @@ class MailResource extends Resource
 
                 TextInput::make('reference_number')
                 ->label('Nomor Surat')
-                ->required()
-                ->unique(),
+                ->required(),
 
                 DatePicker::make('letter_date')
                 ->label('Tanggal Surat')
@@ -95,6 +93,7 @@ class MailResource extends Resource
                 TextColumn::make('phone_number')
                 ->label('No. Telepon')
                 ->sortable()
+                ->prefix('+62')
                 ->searchable(),
 
                 TextColumn::make('received_at')
@@ -112,15 +111,14 @@ class MailResource extends Resource
                 ->sortable()
                 ->date(),
 
-                IconColumn::make('completed')
+                TextColumn::make('completed')
                 ->label('Status')
-                ->sortable()
-                ->boolean()
-                ->trueColor('info')
-                ->falseColor('danger')
-                ->trueIcon('heroicon-o-check-circle')
-                ->falseIcon('heroicon-o-x-circle')
-                ->searchable(),
+                ->formatStateUsing(fn (bool $state): string => $state ? 'Selesai' : 'Proses')
+                ->color(fn (bool $state): string => $state ? 'success' : 'warning')
+                ->searchable()
+                ->extraAttributes(fn (bool $state): array => [
+                    'style' => $state ? 'background-color: #d1e7dd; border-radius: 4px; padding-inline: 10px; padding-block: 2px;' : 'background-color: #fff3cd; border-radius: 4px; padding-inline: 10px; padding-block: 2px;',
+                ]),
             ])
             ->filters([
                 Filter::make('completed')->query(fn (Builder $query): Builder => $query->where('completed', true)),
@@ -136,6 +134,8 @@ class MailResource extends Resource
                     $pdf = Pdf::loadView('pdf.mail', [
                         'mail' => $record,
                         'currentDate' => now()->translatedFormat('d F Y'),
+                        'letterDate' => \Carbon\Carbon::parse($record->letter_date)->translatedFormat('d F Y'),
+                        'receivedAt' => \Carbon\Carbon::parse($record->received_at)->translatedFormat('d F Y'),
                     ]);
 
                     $record->update(['completed' => true]);
