@@ -28,6 +28,7 @@ class AdminPanelProvider extends PanelProvider
         return $panel
             ->default()
             ->id('admin')
+            ->darkMode(false)
             ->path('')
             ->login()
             ->brandLogo('images/logo_black.png')
@@ -64,6 +65,7 @@ class AdminPanelProvider extends PanelProvider
             ])
             ->resources([
                 UserResource::class,
-            ]);
+            ])
+            ->theme(asset('css/filament/admin/theme.css'));
     }
 }
