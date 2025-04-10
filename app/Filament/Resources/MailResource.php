@@ -55,12 +55,10 @@ class MailResource extends Resource
                 ->required(),
 
                 TextInput::make('reference_number')
-                ->label('Nomor Surat')
-                ->required(),
+                ->label('Nomor Surat'),
 
                 DatePicker::make('letter_date')
-                ->label('Tanggal Surat')
-                ->required(),
+                ->label('Tanggal Surat'),
 
                 Select::make('completed')
                 ->label('Status')
@@ -137,8 +135,6 @@ class MailResource extends Resource
                         'letterDate' => \Carbon\Carbon::parse($record->letter_date)->translatedFormat('d F Y'),
                         'receivedAt' => \Carbon\Carbon::parse($record->received_at)->translatedFormat('d F Y'),
                     ]);
-
-                    $record->update(['completed' => true]);
 
                     Notification::make()
                     ->title('Surat Berhasil Terunduh')

@@ -18,8 +18,8 @@ return new class extends Migration
             $table->text('description');
             $table->string('phone_number', 12);
             $table->date('received_at');
-            $table->string('reference_number')->unique();
-            $table->date('letter_date');
+            $table->string('reference_number')->nullable();
+            $table->date('letter_date')->nullable();
             $table->boolean('completed')->default(false);
             $table->foreignId('category_id')->constrained()->cascadeOnDelete();
             $table->softDeletes();
